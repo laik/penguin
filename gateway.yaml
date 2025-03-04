@@ -1,7 +1,7 @@
 global_plugins:
   - name: cms_rate # count-min-sketch based rate limiter
     config:
-      overall: 10
+      total: 10
       interval: 1m
 
 
@@ -10,7 +10,7 @@ services:
     listeners:
       - name: listener1
         address: 0.0.0.0:8080
-        protocol: http
+        protocol: HTTP
     routes:
       - name: public_route
         match:
@@ -19,7 +19,8 @@ services:
         plugins:
           - name: cms_rate
             config:
-              count: 3
+              total: 3
+              interval: 1m
           - name: echo
             config:
               body: "hello, world"
